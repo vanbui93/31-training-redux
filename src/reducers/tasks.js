@@ -1,12 +1,9 @@
 import * as types from "../constants/ActionTypes";
 
-var initialState = [
-{
-    id: 1,
-    name: 'Học React js',
-    status: true
-}
-]; //vì tasks = []
+// lên localStorage lấy danh sách
+var data = JSON.parse(localStorage.getItem('tasks'));
+
+var initialState = data ? data: []; //vì tasks = []
 
 var myReducer = (state = initialState, action) => {
     switch (action.type) {
