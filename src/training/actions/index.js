@@ -1,12 +1,14 @@
+import * as types from './../constants/ActionType'
+
 export const toggleStatus = () => {
   return {
-    type:'TOGGLE_STATUS'
+    type: types.TOGGLE_STATUS
   }
 }
 
 export const sort = (sort) => {
   return {
-    type: "SORT",
+    type: types.SORT,
     sort //sort: sort
   }
 }

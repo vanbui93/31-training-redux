@@ -6,6 +6,7 @@ import Control from './components/Control';
 import _ from 'lodash'
 import  store from './training/store';
 
+
 export default class App extends React.Component {
   
   constructor(props) {
