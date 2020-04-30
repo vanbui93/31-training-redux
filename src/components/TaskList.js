@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import TaskItem from './TaskItem'
+import { connect } from 'react-redux';
 
-export default class TaskList extends Component {
+class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +23,8 @@ export default class TaskList extends Component {
   }
   
   render() {
+    console.log(this.props.todos);
+    
     var {tasks} = this.props;
     var {filterName,filterStatus} = this.state;
     var elmTasks = tasks.map((task, index) => {
@@ -75,3 +78,11 @@ export default class TaskList extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks  // lấy trên state trên store reducer/index, ở đây trả về gì thì state.tasks
+  }
+}
+
+export default connect(mapStateToProps,null)(TaskList);
