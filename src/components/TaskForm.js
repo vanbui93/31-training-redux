@@ -39,13 +39,9 @@ class TaskForm extends Component {
       this.setState({
         id:'',
         name:'',
-        status: false
+        status: true
       })
     }
-  }
-  
-  onCloseForm =() => {
-    this.props.onCloseForm();
   }
 
   onChange = (e) => {
@@ -64,7 +60,7 @@ class TaskForm extends Component {
     e.preventDefault();
     this.props.onAddTask(this.state);
     this.onClear();
-    this.onCloseForm();
+    this.props.onCloseForm();
   }
 
   onClear = () => {
@@ -72,7 +68,7 @@ class TaskForm extends Component {
       name:'',
       status: false
     });
-    this.onCloseForm();
+    this.props.onCloseForm();
   }
 
   render() {

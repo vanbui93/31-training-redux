@@ -23,7 +23,7 @@ var myReducer = (state = initialState, action) => {
             var newTask = {
                 id: generateID(),
                 name: action.task.name,
-                status: action.task.status === 'true' ? true : false
+                status: action.task.status
             }
             state.push(newTask); //state ban đầu là data: [];
             localStorage.setItem('tasks', JSON.stringify(state)); //đưa lên localStorage để lưu dưới dạng string
