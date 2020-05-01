@@ -22,15 +22,6 @@ class App extends React.Component {
       sortValue: 1
     }
   // }
-
-  // // đưa data localStorage vào trong cwm để khi load lại trạng thì ko bị mất dữ liệu
-  // componentWillMount() {
-  //   if(localStorage && localStorage.getItem('tasks')){
-  //     var tasks = JSON.parse(localStorage.getItem('tasks'));
-  //     this.setState({
-  //       tasks: tasks
-  //     })
-  //   }
   }
   
 
@@ -42,39 +33,11 @@ class App extends React.Component {
 
   onCloseForm = () => {
     // this.setState({
-    //   isDisplayForm: false,
     //   taskEditItem: null //clear data
     // })
     this.props.onCloseForm();
   }
 
-
-  onUpdateStatus = (id) => {
-    // console.log(id);
-    var {tasks} = this.state;
-    // var index = this.findIndex(id);
-    var index = _.findIndex(tasks, (task) => {
-      return task.id === id;
-    })
-    if (index !== -1) {
-      tasks[index].status = ! tasks[index].status;
-      this.setState({
-        tasks: tasks
-      });
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-  }
-
-  findIndex = (id) => {
-    var {tasks} = this.state;
-    var result = -1;
-    tasks.forEach((task, index) => {
-      if(task.id === id){ // kiểm tra id bằng id truyền từ TaskItem vào, thì trả về vị trí index
-        result = index;
-      }
-    });
-    return result;
-  }
 
   onDelete = (id) => {
     var {tasks} = this.state;
@@ -107,10 +70,6 @@ class App extends React.Component {
     //mở form khi click vào sửa
     this.onShowForm()
   }
-
-//   componentWillUnmount() {
-//     console.log('Component WILL UNMOUNT!')
-//  }
 
  //Lọc
  onFilter = (filterName,filterStatus) => {
@@ -223,8 +182,6 @@ class App extends React.Component {
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <TaskList 
-                  // tasks={tasks} 
-                  onUpdateStatus = { this.onUpdateStatus } 
                   onDelete = {this.onDelete}
                   onUpdate = {this.onUpdate}
                   onFilter = {this.onFilter}
