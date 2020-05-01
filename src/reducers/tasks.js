@@ -27,8 +27,9 @@ var myReducer = (state = initialState, action) => {
             }
             state.push(newTask); //state ban đầu là data: [];
             localStorage.setItem('tasks', JSON.stringify(state)); //đưa lên localStorage để lưu dưới dạng string
-            console.log(newTask);
+            console.log(action);
             return [...state];
+        
         default:
             return state; 
     }

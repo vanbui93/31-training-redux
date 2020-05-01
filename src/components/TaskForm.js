@@ -132,6 +132,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddTask: (task) => {
       dispatch(actions.addTask(task)); //actions.addTask(task) lấy từ action.js import vào.
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm());
+    },
+    onOpenForm: () => {
+      dispatch(actions.openForm());
     }
   }
 }
