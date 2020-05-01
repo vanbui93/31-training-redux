@@ -11,7 +11,6 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
       isDisplayForm: false,
       taskEditItem: null,
       filter: {
@@ -22,25 +21,18 @@ export default class App extends React.Component {
       sortBy:'name', //mặc định sắp xếp theo tên
       sortValue: 1
     }
-  }
+  // }
 
-  // đưa data localStorage vào trong cwm để khi load lại trạng thì ko bị mất dữ liệu
-  componentWillMount() {
-    if(localStorage && localStorage.getItem('tasks')){
-      var tasks = JSON.parse(localStorage.getItem('tasks'));
-      this.setState({
-        tasks: tasks
-      })
-    }
+  // // đưa data localStorage vào trong cwm để khi load lại trạng thì ko bị mất dữ liệu
+  // componentWillMount() {
+  //   if(localStorage && localStorage.getItem('tasks')){
+  //     var tasks = JSON.parse(localStorage.getItem('tasks'));
+  //     this.setState({
+  //       tasks: tasks
+  //     })
+  //   }
   }
   
-  random = () => {
-    return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1)
-  }
-
-  generateID = () => {
-    return this.random() + this.random() + '-' +this.random() + '-' + this.random() + '-' + this.random() + '-' + this.random() + '-' + this.random() + '-' + this.random();
-  }
 
   // Xử lý khi nhấp vào button thêm mới, kiểm tra nếu trước đó bấm vào 'sửa button' -> 'thêm mới button', thì TH1, vẫn cho hiển thị form và reset giá trị form
   onToggleForm = () => {
@@ -145,9 +137,9 @@ export default class App extends React.Component {
     this.onShowForm()
   }
 
-  componentWillUnmount() {
-    console.log('Component WILL UNMOUNT!')
- }
+//   componentWillUnmount() {
+//     console.log('Component WILL UNMOUNT!')
+//  }
 
  //Lọc
  onFilter = (filterName,filterStatus) => {
@@ -181,33 +173,40 @@ export default class App extends React.Component {
 
 
   render() {
-    var {tasks, isDisplayForm, taskEditItem,filter,keyword, sortBy,sortValue} = this.state;
+    var { 
+      isDisplayForm,
+      taskEditItem,
+      // filter,
+      // keyword,
+      sortBy,
+      sortValue
+      } = this.state;
     
     //Tiến hành render kết quả
-    if(filter) { //Nếu tồn tại biến filter
-      if(filter.name !=='') {   //kiểm tra nếu filter có giá trị, tức nếu người dùng nhập
-        tasks = tasks.filter((taskFilter) => {
-          return taskFilter.name.toLowerCase().indexOf(filter.name) !== -1; //indexOf trả về vị trí đầu tiên của 1 chuỗi, #-1 nghĩa là có tìm thấy giá trị filter
-        })
-      }
-      // ở status ko cần kiểm tra vì mặc định đã có giá trị
-      tasks = tasks.filter((taskFilter) => {
-        if(filter.status === -1) { // nếu status === -1 thì trả về tất cả, do set state từ trước
-          return taskFilter
-        } else {
-          return taskFilter.status === (filter.status === 1 ? true : false) // nếu status : 1 thì true, ngược lại false
-        }
-      })
-    }
+    // if(filter) { //Nếu tồn tại biến filter
+    //   if(filter.name !=='') {   //kiểm tra nếu filter có giá trị, tức nếu người dùng nhập
+    //     tasks = tasks.filter((taskFilter) => {
+    //       return taskFilter.name.toLowerCase().indexOf(filter.name) !== -1; //indexOf trả về vị trí đầu tiên của 1 chuỗi, #-1 nghĩa là có tìm thấy giá trị filter
+    //     })
+    //   }
+    //   // ở status ko cần kiểm tra vì mặc định đã có giá trị
+    //   tasks = tasks.filter((taskFilter) => {
+    //     if(filter.status === -1) { // nếu status === -1 thì trả về tất cả, do set state từ trước
+    //       return taskFilter
+    //     } else {
+    //       return taskFilter.status === (filter.status === 1 ? true : false) // nếu status : 1 thì true, ngược lại false
+    //     }
+    //   })
+    // }
 
     // if(keyword){
     //   tasks = tasks.filter((taskFilter) => {
     //     return taskFilter.name.toLowerCase().indexOf(keyword) !== -1; //indexOf trả về vị trí của 1 chuỗi
     //   })
     // }
-    tasks = _.filter(tasks, (task) => { 
-      return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !==-1; 
-    });
+    // tasks = _.filter(tasks, (task) => { 
+    //   return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !==-1; 
+    // });
     
     var elmTaskForm = isDisplayForm === true 
       ? 
@@ -219,19 +218,19 @@ export default class App extends React.Component {
       : 
        '';
 
-    if(sortBy === 'name'){  // sort theo name
-      tasks.sort((a,b) => {
-        if(a.name >b.name) return sortValue;
-        else if(a.name < b.name) return -sortValue;
-        else return 0;
-      });
-    } else { // sort theo status
-      tasks.sort((a,b) => {
-        if(a.status >b.status) return -sortValue; //nếu return -1 thì 'name' tăng dần, trả về sortValue (đã set giá trị rồi) chứ ko set cứng
-        else if(a.name < b.name) return sortValue; //nếu return 1 thì 'name' giảm dần
-        else return 0;
-      });
-    }
+    // if(sortBy === 'name'){  // sort theo name
+    //   tasks.sort((a,b) => {
+    //     if(a.name >b.name) return sortValue;
+    //     else if(a.name < b.name) return -sortValue;
+    //     else return 0;
+    //   });
+    // } else { // sort theo status
+    //   tasks.sort((a,b) => {
+    //     if(a.status >b.status) return -sortValue; //nếu return -1 thì 'name' tăng dần, trả về sortValue (đã set giá trị rồi) chứ ko set cứng
+    //     else if(a.name < b.name) return sortValue; //nếu return 1 thì 'name' giảm dần
+    //     else return 0;
+    //   });
+    // }
 
     return (
       <div className="container">
@@ -255,7 +254,7 @@ export default class App extends React.Component {
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <TaskList 
-                  tasks={tasks} 
+                  // tasks={tasks} 
                   onUpdateStatus = { this.onUpdateStatus } 
                   onDelete = {this.onDelete}
                   onUpdate = {this.onUpdate}
