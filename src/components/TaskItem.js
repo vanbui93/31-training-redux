@@ -8,13 +8,12 @@ class TaskItem extends Component {
     this.props.onUpdateStatus(this.props.task.id);
   }
 
-  onDelete = () => {
-    // console.log(this.props.task.id);
-    this.props.onDelete(this.props.task.id);
+  onDeleteItem = () => {
+    this.props.onDeleteTask(this.props.task.id); //dispatch action.deleteItem
+    this.props.onCloseForm();
   }
 
   onUpdate = () => {
-    // console.log(this.props.task.id);
     this.props.onUpdate(this.props.task.id);
   }
 
@@ -40,7 +39,7 @@ class TaskItem extends Component {
             <i className="fa fa-pencil mr-2" />Sửa
           </button>
           <button type="button" className="btn btn-danger"
-            onClick={this.onDelete}
+            onClick={this.onDeleteItem}
           >
             <i className="fa fa-trash mr-2" />Xóa
           </button>
@@ -59,6 +58,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onUpdateStatus: (id) => {
       dispatch(actions.updateStatusTask(id))
+    },
+    onDeleteTask: (id) => {
+      dispatch(actions.deleteTask(id));
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm());
     }
   }
 }

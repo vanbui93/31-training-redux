@@ -38,20 +38,6 @@ class App extends React.Component {
     this.props.onCloseForm();
   }
 
-
-  onDelete = (id) => {
-    var {tasks} = this.state;
-    var index = this.findIndex(id);
-    if (index !== -1) {
-      tasks.splice(index,1);
-      this.setState({
-        tasks: tasks
-      });
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-    this.onCloseForm();
-  }
-
   //khi click button sửa thì show form ra
   onShowForm = () => {
     this.setState({
@@ -138,13 +124,7 @@ class App extends React.Component {
     //   return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !==-1; 
     // });
     
-    var elmTaskForm = isDisplayForm === true 
-      ? 
-        <TaskForm 
-          taskEditItem = { taskEditItem }
-        /> 
-      : 
-       '';
+    var elmTaskForm = isDisplayForm === true ? <TaskForm taskEditItem = { taskEditItem } /> : '';
 
     // if(sortBy === 'name'){  // sort theo name
     //   tasks.sort((a,b) => {
@@ -181,8 +161,7 @@ class App extends React.Component {
             />
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TaskList 
-                  onDelete = {this.onDelete}
+                <TaskList
                   onUpdate = {this.onUpdate}
                   onFilter = {this.onFilter}
                 />
