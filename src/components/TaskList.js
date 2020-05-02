@@ -33,7 +33,6 @@ class TaskList extends Component {
         key={index} 
         index={index} 
         task={task}
-        onUpdate = {this.props.onUpdate}
       />
     })
     return (

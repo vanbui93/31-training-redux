@@ -45,17 +45,17 @@ class App extends React.Component {
     })
   }
 
-  onUpdate = (id) => {
-    var {tasks} = this.state;
-    var index = this.findIndex(id);
-    var taskEditItem = tasks[index];
-    this.setState({
-      taskEditItem: taskEditItem
-    })
+  // onUpdate = (id) => {
+  //   var {tasks} = this.state;
+  //   var index = this.findIndex(id);
+  //   var taskEditItem = tasks[index];
+  //   this.setState({
+  //     taskEditItem: taskEditItem
+  //   })
     
-    //mở form khi click vào sửa
-    this.onShowForm()
-  }
+  //   //mở form khi click vào sửa
+  //   this.onShowForm()
+  // }
 
  //Lọc
  onFilter = (filterName,filterStatus) => {
@@ -124,7 +124,7 @@ class App extends React.Component {
     //   return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !==-1; 
     // });
     
-    var elmTaskForm = isDisplayForm === true ? <TaskForm taskEditItem = { taskEditItem } /> : '';
+    
 
     // if(sortBy === 'name'){  // sort theo name
     //   tasks.sort((a,b) => {
@@ -148,7 +148,7 @@ class App extends React.Component {
         </div>
         <div className="row">
           <div className="col-4">
-            {elmTaskForm}
+            <TaskForm taskEditItem = { taskEditItem } />
           </div>
           <div className={ isDisplayForm ? 'col-8' : 'col-12' }>
             <button type="button" className="btn btn-primary mb-3 mr-2" onClick={ this.onToggleForm }><i className="fa fa-plus mr-2"/>Thêm Công Việc</button>

@@ -13,8 +13,9 @@ class TaskItem extends Component {
     this.props.onCloseForm();
   }
 
-  onUpdate = () => {
-    this.props.onUpdate(this.props.task.id);
+  onSelectItem = () => {
+    // this.props.onUpdate(this.props.task.id);
+    this.props.onOpenForm();
   }
 
   render() {
@@ -34,7 +35,7 @@ class TaskItem extends Component {
         </td>
         <td className="text-center">
           <button type="button" className="btn btn-warning mr-3"
-            onClick = { this.onUpdate }
+            onClick = { this.onSelectItem }
           >
             <i className="fa fa-pencil mr-2" />Sửa
           </button>
@@ -64,6 +65,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onCloseForm: () => {
       dispatch(actions.closeForm());
+    },
+    onOpenForm: () => {
+      dispatch(actions.openForm());
+    },
+    ontoggleForm: () => {
+      dispatch(actions.toggleForm());
     }
   }
 }
