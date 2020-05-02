@@ -28,6 +28,11 @@ class App extends React.Component {
   onToggleForm = () => {
     //Trường hợp 'sửa button' -> 'thêm mới button'
     this.props.onToggleForm();
+    this.props.onClearTask({
+      id: '',
+      name: '',
+      status: false
+    });
   }
 
   onCloseForm = () => {
@@ -187,7 +192,7 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(actions.closeForm());
     },
     onClearTask: (task) => {
-      dispatch(actions.saveTask(task)); //actions.addTask(task) lấy từ action.js import vào.
+      dispatch(actions.editTask(task)); //actions.addTask(task) lấy từ action.js import vào.
     }
   }
 }
