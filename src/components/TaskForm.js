@@ -27,7 +27,7 @@ class TaskForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps); gọi lại để sử dụng
+    // console.log(nextProps); //gọi lại để sử dụng
     if(nextProps && nextProps.taskEditItem) {
       this.setState({
         id: nextProps.taskEditItem.id,
@@ -36,11 +36,7 @@ class TaskForm extends Component {
       })
     } else if(nextProps && nextProps.taskEditItem === null) {
       // console.log('sửa btn -> thêm mới btn');
-      this.setState({
-        id:'',
-        name:'',
-        status: true
-      })
+      this.onClear();
     }
   }
 
@@ -58,7 +54,8 @@ class TaskForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onAddTask(this.state);
+    //Kiểm tra khi nào add, khi nào update
+    this.props.onSaveTask(this.state);
     this.onClear();
     this.props.onCloseForm();
   }
@@ -76,7 +73,7 @@ class TaskForm extends Component {
   }
 
   render() {
-    if(!this.props.isDisplayForm) return '';
+    if(!this.props.isDisplayForm) return null;
     var {id} = this.state;
     return (
       <div className="panel panel-warning">
@@ -124,14 +121,15 @@ class TaskForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isDisplayForm: state.isDisplayForm
+    isDisplayForm: state.isDisplayForm,
+    taskEditItem: state.itemEditing
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onAddTask: (task) => {
-      dispatch(actions.addTask(task)); //actions.addTask(task) lấy từ action.js import vào.
+    onSaveTask: (task) => {
+      dispatch(actions.saveTask(task)); //actions.addTask(task) lấy từ action.js import vào.
     },
     onCloseForm: () => {
       dispatch(actions.closeForm());

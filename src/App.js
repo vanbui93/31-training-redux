@@ -12,7 +12,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskEditItem: null,
       filter: {
         name: '',
         status: -1
@@ -28,7 +27,7 @@ class App extends React.Component {
   // Xử lý khi nhấp vào button thêm mới, kiểm tra nếu trước đó bấm vào 'sửa button' -> 'thêm mới button', thì TH1, vẫn cho hiển thị form và reset giá trị form
   onToggleForm = () => {
     //Trường hợp 'sửa button' -> 'thêm mới button'
-    this.props.onToggleForm()
+    this.props.onToggleForm();
   }
 
   onCloseForm = () => {
@@ -91,7 +90,6 @@ class App extends React.Component {
   render() {
     var { isDisplayForm } = this.props;
     var { 
-      taskEditItem,
       // filter,
       // keyword,
       sortBy,
@@ -148,7 +146,7 @@ class App extends React.Component {
         </div>
         <div className="row">
           <div className="col-4">
-            <TaskForm taskEditItem = { taskEditItem } />
+            <TaskForm/>
           </div>
           <div className={ isDisplayForm ? 'col-8' : 'col-12' }>
             <button type="button" className="btn btn-primary mb-3 mr-2" onClick={ this.onToggleForm }><i className="fa fa-plus mr-2"/>Thêm Công Việc</button>
@@ -187,6 +185,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onCloseForm: () => {
       dispatch(actions.closeForm());
+    },
+    onClearTask: (task) => {
+      dispatch(actions.saveTask(task)); //actions.addTask(task) lấy từ action.js import vào.
     }
   }
 }

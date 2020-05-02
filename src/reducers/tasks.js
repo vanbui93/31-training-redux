@@ -32,13 +32,20 @@ var myReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.LIST_ALL:
             return state;    
-        case types.ADD_TASK:
-            var newTask = {
-                id: generateID(),
+        case types.SAVE_TASK: //sửa để dùng chung add, update
+            var actionTask = {
+                id: action.task.id,
                 name: action.task.name,
                 status: action.task.status
             }
-            state.push(newTask); //state ban đầu là data: [];
+            if(!actionTask.id) {  //nếu KHÔNG tồn tại id, ADD_TASK
+                actionTask.id = generateID();
+                state.push(actionTask);
+            } else {             // EDIT_TASK
+                index = findIndex(state, actionTask.id);
+                state[index] = actionTask;    /// => thay thế task thành actionTask
+            }
+            
             localStorage.setItem('tasks', JSON.stringify(state)); //đưa lên localStorage để lưu dưới dạng string
             console.log(action);
             return [...state];
