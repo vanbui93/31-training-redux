@@ -42,7 +42,14 @@ var myReducer = (state = initialState, action) => {
             console.log(action);
             var id = action.id;
             var index = findIndex(state, id);
-            state[index].status = !state[index].status;
+            // state[index].status = !state[index].status; //Nếu viết kiểu này thì ra ngoài view không cập nhật được
+            
+            //CÁCH 1
+            var cloneTask = {...state[index]};    //copy ra 1 object mới nên sử dụng cặp ngoặc {...}
+            cloneTask.status = !cloneTask.status; //đảo ngược status
+            state.splice(index,1);                // xóa đi task cũ
+            state.push(cloneTask);                // thêm task mới với status mới
+            
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
             // if (index !== -1) {

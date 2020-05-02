@@ -71,6 +71,10 @@ class TaskForm extends Component {
     this.props.onCloseForm();
   }
 
+  onCloseForm = () => {
+    this.props.onCloseForm();
+  }
+
   render() {
     var {id} = this.state;
     
