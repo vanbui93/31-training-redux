@@ -45,13 +45,16 @@ var myReducer = (state = initialState, action) => {
             // state[index].status = !state[index].status; //Nếu viết kiểu này thì ra ngoài view không cập nhật được
             
             //CÁCH 1
-            var cloneTask = {...state[index]};    //copy ra 1 object mới nên sử dụng cặp ngoặc {...}
-            cloneTask.status = !cloneTask.status; //đảo ngược status
-            // state.splice(index,1);                // xóa đi task cũ
-            // state.push(cloneTask);                // thêm task mới với status mới
+            // var cloneTask = {...state[index]};    //copy ra 1 object mới nên sử dụng cặp ngoặc {...}
+            // cloneTask.status = !cloneTask.status; //đảo ngược status
+            // // state.splice(index,1);                // xóa đi task cũ
+            // // state.push(cloneTask);                // thêm task mới với status mới
             
-            //CÁCH 2
-            state[index] = cloneTask;
+            // //CÁCH 2
+            // state[index] = cloneTask;
+
+            //CÁCH 3
+            state[index] = {...state[index], status: !state[index].status} //copy ra ...state
 
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
