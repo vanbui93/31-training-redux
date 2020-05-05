@@ -26,13 +26,16 @@ class App extends React.Component {
 
   // Xử lý khi nhấp vào button thêm mới, kiểm tra nếu trước đó bấm vào 'sửa button' -> 'thêm mới button', thì TH1, vẫn cho hiển thị form và reset giá trị form
   onToggleForm = () => {
-    //Trường hợp 'sửa button' -> 'thêm mới button'
-    this.props.onToggleForm();
-    this.props.onClearTask({
-      id: '',
-      name: '',
-      status: false
-    });
+    if(this.props.itemEditing !== '') {  //Trường hợp 'sửa button' -> 'thêm mới button'
+      this.props.onOpenForm();
+      this.props.onClearTask({
+        id: '',
+        name: '',
+        status: false
+      });
+    } else {
+      this.props.onToggleForm();
+    }
   }
 
   onCloseForm = () => {
@@ -48,18 +51,6 @@ class App extends React.Component {
       isDisplayForm: true
     })
   }
-
-  // onUpdate = (id) => {
-  //   var {tasks} = this.state;
-  //   var index = this.findIndex(id);
-  //   var taskEditItem = tasks[index];
-  //   this.setState({
-  //     taskEditItem: taskEditItem
-  //   })
-    
-  //   //mở form khi click vào sửa
-  //   this.onShowForm()
-  // }
 
  //Lọc
  onFilter = (filterName,filterStatus) => {
@@ -179,7 +170,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    isDisplayForm: state.isDisplayForm  //lấy trên store file isDisplayForm true/false
+    isDisplayForm: state.isDisplayForm,  //lấy trên store file isDisplayForm true/false
+    itemEditing: state.itemEditing
   }
 }
 
@@ -193,7 +185,11 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onClearTask: (task) => {
       dispatch(actions.editTask(task)); //actions.addTask(task) lấy từ action.js import vào.
+    },
+    onOpenForm: () => {
+      dispatch(actions.openForm());
     }
+
   }
 }
 
