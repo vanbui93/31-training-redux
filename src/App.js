@@ -52,20 +52,6 @@ class App extends React.Component {
     })
   }
 
- //Lọc
- onFilter = (filterName,filterStatus) => {
-  console.log(filterName,filterStatus); 
-  // console.log(typeof FilterStatus); //kiểm tra kiểu dữ liệu
-  filterStatus = parseInt(filterStatus,10); // chuyển qua kiểu number
-
-  //cập nhật lại state của task
-  this.setState({
-    filter: {
-      name: filterName.toLowerCase(), //Chuyển mọi kí tự thành chữ thường
-      status: filterStatus
-    }
-  })
- }
 
  onSearch = (keyword) => {
   //  console.log(keyword);
@@ -92,32 +78,8 @@ class App extends React.Component {
       sortValue
       } = this.state;
     
-    //Tiến hành render kết quả
-    // if(filter) { //Nếu tồn tại biến filter
-    //   if(filter.name !=='') {   //kiểm tra nếu filter có giá trị, tức nếu người dùng nhập
-    //     tasks = tasks.filter((taskFilter) => {
-    //       return taskFilter.name.toLowerCase().indexOf(filter.name) !== -1; //indexOf trả về vị trí đầu tiên của 1 chuỗi, #-1 nghĩa là có tìm thấy giá trị filter
-    //     })
-    //   }
-    //   // ở status ko cần kiểm tra vì mặc định đã có giá trị
-    //   tasks = tasks.filter((taskFilter) => {
-    //     if(filter.status === -1) { // nếu status === -1 thì trả về tất cả, do set state từ trước
-    //       return taskFilter
-    //     } else {
-    //       return taskFilter.status === (filter.status === 1 ? true : false) // nếu status : 1 thì true, ngược lại false
-    //     }
-    //   })
-    // }
 
-    // if(keyword){
-    //   tasks = tasks.filter((taskFilter) => {
-    //     return taskFilter.name.toLowerCase().indexOf(keyword) !== -1; //indexOf trả về vị trí của 1 chuỗi
-    //   })
-    // }
-    // tasks = _.filter(tasks, (task) => { 
-    //   return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !==-1; 
-    // });
-    
+  
     
 
     // if(sortBy === 'name'){  // sort theo name
@@ -148,17 +110,13 @@ class App extends React.Component {
             <button type="button" className="btn btn-primary mb-3 mr-2" onClick={ this.onToggleForm }><i className="fa fa-plus mr-2"/>Thêm Công Việc</button>
             {/* <button type="button" className="btn btn-danger mb-3" onClick={() => this.onGenerateData()}><i className="fa fa-plus mr-2"/>Generate data</button> */}
             <Control 
-              onSearch={this.onSearch}
               onClickSort={this.onClickSort}
               sortBy={sortBy}
               sortValue={sortValue}
             />
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TaskList
-                  onUpdate = {this.onUpdate}
-                  onFilter = {this.onFilter}
-                />
+                <TaskList/>
               </div>
             </div>
           </div>

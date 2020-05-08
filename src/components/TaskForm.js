@@ -14,7 +14,7 @@ class TaskForm extends Component {
   
   //khi component được gắn vào thì gọi cwm
   componentWillMount() {
-    console.log(this.props);
+    // console.log(this.props);
     
     //kiểm tra nếu có chỉnh sửa item (có id), thì gắn giá trị cần chỉnh sửa vào form
     if(this.props.taskEditItem) {

@@ -16,29 +16,59 @@ class TaskList extends Component {
   onChange = (e) => {
     var target = e.target;
     var name = target.name;
-    var value = target.type === 'checkbox' ? target.checked : target.value;
+    var value = target.type === 'checkbox' ? target.checked : target.value;     // nếu input là checkbox thì target.checked
 
+    //filter {key,value}
     var filter = {
       name: name === 'filterName' ? value : this.state.filterName,
       status: name === 'filterStatus' ? value : this.state.filterStatus
-
     }
     this.props.onfilterTask(filter);
     this.setState({
       [name]: value
     });
-    console.log(this.state);
-    
+    // console.log(this.state);
   }
   
   render() {
     
-    var {tasks} = this.props;
-    var {filterName,filterStatus} = this.state;
+    var {tasks, filterTask} = this.props;
+    console.log(filterTask);
+    
+    //Tiến hành filterTask trên reducer
+    if(filterTask) { //Nếu tồn tại biến filterTask
+      if(filterTask.name !=='') {   //kiểm tra nếu filterTask có giá trị, tức nếu người dùng nhập
+        tasks = tasks.filter((taskFilter) => {
+          return taskFilter.name.toLowerCase().indexOf(filterTask.name) !== -1; //indexOf trả về vị trí đầu tiên của 1 chuỗi, #-1 nghĩa là có tìm thấy giá trị filterTask
+        })
+      }
+      // ở status ko cần kiểm tra vì mặc định đã có giá trị
+      tasks = tasks.filter((taskFilter) => {
+        if(filterTask.status === -1) { // nếu status === -1 thì trả về tất cả, do set state từ trước
+          return taskFilter
+        } else {
+          return taskFilter.status === (filterTask.status === 1 ? true : false) // nếu status : 1 thì true, ngược lại false
+        }
+      })
+    }
+
+
+    var {filterName,filterStatus,keyword} = this.state;
+
+    console.log(this.props.keyword);
+    
+
+      if(keyword){
+        tasks = tasks.filter((taskFilter) => {
+          return taskFilter.name.toLowerCase().indexOf(keyword) !== -1; //indexOf trả về vị trí của 1 chuỗi
+        })
+      }
+
+
     var elmTasks = tasks.map((task, index) => {
       return <TaskItem 
         key={index} 
-        index={index} 
+        index={index}  
         task={task}
       />
     })
@@ -86,7 +116,9 @@ class TaskList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    tasks: state.tasks  // lấy trên state trên store reducer/index, ở đây trả về gì thì state.tasks
+    tasks: state.tasks,  // lấy trên state trên store reducer/index, ở đây trả về gì thì state.tasks
+    filterTask: state.filterTask,
+    keyword: state.Search
   }
 }
 
