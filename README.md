@@ -33,13 +33,9 @@ Trong components muốn kết nối
 `import { connect } from 'react-redux';`
 
 `const mapStateToProps = (state) => {
-
-  return {
-  
+  return {  
     tasks: state.tasks  // lấy trên state trên store reducer/index, ở đây trả về gì thì state.tasks
-    
   }
-  
 }`
 
 export default connect(mapStateToProps,null)(TaskList);
