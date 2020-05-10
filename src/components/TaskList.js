@@ -32,8 +32,8 @@ class TaskList extends Component {
   
   render() {
     
-    var {tasks, filterTask} = this.props;
-    console.log(filterTask);
+    var {tasks, filterTask,sort,keyword} = this.props;
+    console.log(sort);
     
     //Tiến hành filterTask trên reducer
     if(filterTask) { //Nếu tồn tại biến filterTask
@@ -53,15 +53,29 @@ class TaskList extends Component {
     }
 
 
-    var {filterName,filterStatus,keyword} = this.state;
+    var {filterName,filterStatus} = this.props;
 
-    console.log(this.props.keyword);
+    // console.log(keyword);
     
 
-      if(keyword){
-        tasks = tasks.filter((taskFilter) => {
-          return taskFilter.name.toLowerCase().indexOf(keyword) !== -1; //indexOf trả về vị trí của 1 chuỗi
-        })
+    if(keyword){
+      tasks = tasks.filter((taskFilter) => {
+        return taskFilter.name.toLowerCase().indexOf(keyword) !== -1; //indexOf trả về vị trí của 1 chuỗi
+      })
+    }
+
+    if(sort.by === 'name'){  // sort theo name
+        tasks.sort((a,b) => {
+          if(a.name >b.name) return sort.value;
+          else if(a.name < b.name) return -sort.value;
+          else return 0;
+        });
+      } else { // sort theo status
+        tasks.sort((a,b) => {
+          if(a.status >b.status) return -sort.value; //nếu return -1 thì 'name' tăng dần, trả về sortValue (đã set giá trị rồi) chứ ko set cứng
+          else if(a.status < b.status) return sort.value; //nếu return 1 thì 'name' giảm dần
+          else return 0;
+        });
       }
 
 
@@ -118,7 +132,8 @@ const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,  // lấy trên state trên store reducer/index, ở đây trả về gì thì state.tasks
     filterTask: state.filterTask,
-    keyword: state.Search
+    keyword: state.Search,
+    sort: state.sort
   }
 }
 

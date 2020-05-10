@@ -12,11 +12,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: {
-        name: '',
-        status: -1
-      },
-      keyword:'',
       sortBy:'name', //mặc định sắp xếp theo tên
       sortValue: 1
     }
@@ -52,14 +47,6 @@ class App extends React.Component {
     })
   }
 
-
- onSearch = (keyword) => {
-  //  console.log(keyword);
-  this.setState({
-    keyword: keyword
-  })
- }
-
  onClickSort = (sortBy,sortValue) => {
   this.setState({
     sortBy:sortBy,
@@ -71,31 +58,7 @@ class App extends React.Component {
 
   render() {
     var { isDisplayForm } = this.props;
-    var { 
-      // filter,
-      // keyword,
-      sortBy,
-      sortValue
-      } = this.state;
-    
-
-  
-    
-
-    // if(sortBy === 'name'){  // sort theo name
-    //   tasks.sort((a,b) => {
-    //     if(a.name >b.name) return sortValue;
-    //     else if(a.name < b.name) return -sortValue;
-    //     else return 0;
-    //   });
-    // } else { // sort theo status
-    //   tasks.sort((a,b) => {
-    //     if(a.status >b.status) return -sortValue; //nếu return -1 thì 'name' tăng dần, trả về sortValue (đã set giá trị rồi) chứ ko set cứng
-    //     else if(a.name < b.name) return sortValue; //nếu return 1 thì 'name' giảm dần
-    //     else return 0;
-    //   });
-    // }
-
+   
     return (
       <div className="container">
         <div className="text-center">
@@ -109,11 +72,7 @@ class App extends React.Component {
           <div className={ isDisplayForm ? 'col-8' : 'col-12' }>
             <button type="button" className="btn btn-primary mb-3 mr-2" onClick={ this.onToggleForm }><i className="fa fa-plus mr-2"/>Thêm Công Việc</button>
             {/* <button type="button" className="btn btn-danger mb-3" onClick={() => this.onGenerateData()}><i className="fa fa-plus mr-2"/>Generate data</button> */}
-            <Control 
-              onClickSort={this.onClickSort}
-              sortBy={sortBy}
-              sortValue={sortValue}
-            />
+            <Control/>
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <TaskList/>
