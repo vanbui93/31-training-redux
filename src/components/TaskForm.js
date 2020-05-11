@@ -75,6 +75,7 @@ class TaskForm extends Component {
   render() {
     if(!this.props.isDisplayForm) return null;
     var {id} = this.state;
+    
     return (
       <div className="panel panel-warning">
         <div className="panel-heading">
@@ -109,7 +110,7 @@ class TaskForm extends Component {
             </select>
             <br />
             <div className="text-center">
-              <button type="submit" className="btn btn-warning">{ this.props.taskEditItem ? 'Cập nhật' :'Thêm'}</button>&nbsp;
+              <button type="submit" className="btn btn-warning">{ this.props.taskEditItem.id ? 'Cập nhật' : 'Thêm'}</button>&nbsp;
               <button type="button" className="btn btn-danger" onClick={this.onClear}>Hủy Bỏ</button>
             </div>
           </form>

@@ -36,7 +36,7 @@ var myReducer = (state = initialState, action) => {
             var actionTask = {
                 id: action.task.id,
                 name: action.task.name,
-                status: action.task.status
+                status: (action.task.status === 'true' || action.task.status === true) ? true : false
             }
             if(!actionTask.id) {  //nếu KHÔNG tồn tại id, ADD_TASK
                 actionTask.id = generateID();
